@@ -1,12 +1,14 @@
-import { useState } from 'react'
+
 import ProductForm from './components/ProductForm'
 import ProductList from './components/ProductList'
 import Cart from './components/Cart'
+import useLocalStorage from './hooks/useLocalStorage'
 
 
 function App() {
-  const [products, setProducts] = useState([])
-  const [cart, setCart] = useState([]) 
+  const [products, setProducts] = useLocalStorage('techstore-products', [])
+  const [cart, setCart] = useLocalStorage('techstore-cart', [])
+   
 
 
   function handleAddProduct(newProduct) {
