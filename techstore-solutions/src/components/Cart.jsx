@@ -1,16 +1,15 @@
 // src/components/Cart.jsx
 import CartItem from './CartItem'
+import { calculateSubtotal, calculateTotal, IGV_RATE } from '../utils/cartCalculations'
 
-const IGV_RATE = 0.18 // 18%
+
+
+
 
 function Cart({ cart, onIncrease, onDecrease, onRemove }) {
-  const subtotal = cart.reduce(
-    (acc, item) => acc + item.price * item.cartQuantity,
-    0
-  )
-
+  const subtotal = calculateSubtotal(cart)
   const igv = subtotal * IGV_RATE
-  const total = subtotal + igv
+  const total = calculateTotal(cart)
 
   if (cart.length === 0) {
     return (

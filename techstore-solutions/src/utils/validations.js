@@ -2,7 +2,7 @@ export function validateProductForm({ name, price, quantity }) {
     const errors = {}
 
     if (!name || name.trim() === '') {
-        errors.name = 'El nombre del producto es obligatoria'
+        errors.name = 'El nombre del producto es obligatorio'
     }
 
     if (price === '' || isNaN(price) || Number(price) <= 0) {
