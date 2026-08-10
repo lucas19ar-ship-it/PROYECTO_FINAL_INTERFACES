@@ -2,12 +2,16 @@ import './App.css'
 import ProductForm from './components/ProductForm'
 import ProductList from './components/ProductList'
 import Cart from './components/Cart'
+import Login from './components/Login'
 import useLocalStorage from './hooks/useLocalStorage'
+import useAuth from './hooks/useAuth'
+
 
 
 function App() {
   const [products, setProducts] = useLocalStorage('techstore-products', [])
   const [cart, setCart] = useLocalStorage('techstore-cart', [])
+  const { session, isAuthenticated, loginError, login, logout } = useAuth()
 
 
 
@@ -52,10 +56,24 @@ function App() {
   function handleRemove(id) {
     setCart(prevCart => prevCart.filter(item => item.id !== id))
   }
+   
+  if (!isAuthenticated) { 
+    return <Login onLogin={login} loginError={loginError} />
+  }
+
 
   return (
     <div className="app">
-      <h1>TechStore Solutions</h1>
+      <div className="app-header">
+        <h1>TechStore Solutions</h1>
+        <div className="session-info">
+          <span>
+            {session.username} ({session.role})
+          </span>
+          <button onClick={logout} className="btn-logout">Cerrar Sesión</button>
+        </div>
+      </div>
+
       <ProductForm onAddProduct={handleAddProduct} />
       <ProductList products={products} onAddToCart={handleAddToCart} />
       <Cart 
