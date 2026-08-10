@@ -1,10 +1,17 @@
 // src/components/Login.jsx
 import { useState } from 'react'
+import { findUser } from '../utils/users'
+
 
 function Login({ onLogin, loginError }) {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [fieldErrors, setFieldErrors] = useState({})
+
+// Verificamos en vivo si el usuario ingresado ya esta bloqeado 
+const existingUser = username.trim() ? findUser(username.trim()) : null
+const isAccountBlocked = existingUser?.blocked === true
+
 
   function handleSubmit(e) {
     e.preventDefault()
@@ -50,9 +57,19 @@ function Login({ onLogin, loginError }) {
           )}
         </div>
 
-        {loginError && <p className="error-message login-error">{loginError}</p>}
+        {isAccountBlocked && (
+          <p className="error-message login-error blocked-message">
+            🔒 Cuenta bloqueada por seguridad. Debes restablecer tu contraseña para continuar.
+          </p>
+        )}
 
-        <button type="submit">Ingresar</button>
+        {!isAccountBlocked && loginError && (
+          <p className="error-message login-error">{loginError}</p>
+        )}
+        
+        <button type="submit" disabled={isAccountBlocked}>
+          Ingresar
+        </button>
 
         <p className="login-hint">
           Admin: admin / admin123 &nbsp;|&nbsp; Cliente: cliente / cliente123

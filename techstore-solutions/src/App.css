@@ -244,3 +244,102 @@ body {
   font-weight: 700;
   color: var(--color-primary);
 }
+
+/* Login y bloqueo de cuenta */
+.login-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-bg);
+}
+
+.login-form {
+  background: var(--color-surface);
+  padding: 32px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  width: 100%;
+  max-width: 360px;
+}
+
+.login-form h2 {
+  text-align: center;
+  margin-top: 0;
+  color: var(--color-primary);
+}
+
+.login-form button {
+  width: 100%;
+  background-color: var(--color-primary);
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: var(--radius);
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 8px;
+}
+
+.login-form button:hover:not(:disabled) {
+  background-color: var(--color-primary-hover);
+}
+
+.login-form button:disabled {
+  background-color: #94a3b8;
+  cursor: not-allowed;
+}
+
+.login-error {
+  text-align: center;
+  margin-top: 8px;
+}
+
+.blocked-message {
+  background-color: #fef2f2;
+  border: 1px solid var(--color-danger);
+  padding: 10px;
+  border-radius: var(--radius);
+}
+
+.login-hint {
+  text-align: center;
+  font-size: 0.75rem;
+  color: var(--color-text-light);
+  margin-top: 16px;
+}
+
+/* Header de sesión */
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.app-header h1 {
+  margin: 0;
+}
+
+.session-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.9rem;
+}
+
+.btn-logout {
+  background-color: var(--color-danger);
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: var(--radius);
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.btn-logout:hover {
+  background-color: var(--color-danger-hover);
+}
