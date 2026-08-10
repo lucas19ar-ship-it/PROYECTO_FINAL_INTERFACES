@@ -1,8 +1,10 @@
 import './App.css'
+import { useState } from 'react'
 import ProductForm from './components/ProductForm'
 import ProductList from './components/ProductList'
 import Cart from './components/Cart'
 import Login from './components/Login'
+import ResetPassword from './components/ResetPassword'
 import useLocalStorage from './hooks/useLocalStorage'
 import useAuth from './hooks/useAuth'
 
@@ -12,6 +14,7 @@ function App() {
   const [products, setProducts] = useLocalStorage('techstore-products', [])
   const [cart, setCart] = useLocalStorage('techstore-cart', [])
   const { session, isAuthenticated, loginError, login, logout } = useAuth()
+  const [authView, setAuthView] = useState('login') // 'login' | 'reset'
 
 
 
@@ -22,7 +25,6 @@ function App() {
   function handleAddToCart(product) {
     setCart(prevCart => {
       const existing = prevCart.find(item => item.id === product.id)
-
       if (existing) {
         return prevCart.map(item =>
           item.id === product.id
@@ -57,9 +59,21 @@ function App() {
     setCart(prevCart => prevCart.filter(item => item.id !== id))
   }
    
+  // sin sesion: mostramos login o resertpassword segun la vista activa //
   if (!isAuthenticated) { 
-    return <Login onLogin={login} loginError={loginError} />
+    if (authView == 'reset') {
+      return <ResetPassword onBackToLogin={() => setAuthView('login')} />
+    }
+    return (
+      <Login
+        onLogin={login}
+        loginError={loginError}
+        onGoToReset={() => setAuthView('reset')}
+      />
+    )
   }
+
+
 
 
   return (
@@ -82,9 +96,7 @@ function App() {
         onDecrease={handleDecrease}
         onRemove={handleRemove}
       />
-    </div>
-
-      
+    </div> 
   )
 }
 export default App

@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { findUser } from '../utils/users'
 
 
-function Login({ onLogin, loginError }) {
+function Login({ onLogin, loginError, onGoToReset }) {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [fieldErrors, setFieldErrors] = useState({})
@@ -74,6 +74,14 @@ const isAccountBlocked = existingUser?.blocked === true
         <p className="login-hint">
           Admin: admin / admin123 &nbsp;|&nbsp; Cliente: cliente / cliente123
         </p>
+        <button 
+          type="button"
+          className="btn-link"
+          onClick={onGoToReset}
+        >
+            ¿Olvidaste tu contraseña? / Cuenta Bloqueada
+        </button>
+        
       </form>
     </div>
   )

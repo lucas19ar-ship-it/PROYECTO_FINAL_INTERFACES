@@ -44,4 +44,16 @@ export function updateUser(username, changes) {
 }
 
 
+// Funcion de reset //
+export function resetPassword(username, newPassword) {
+  const user = findUser(username)
+  if (!user) return null
+
+  return updateUser(username, {
+    password: newPassword,
+    failedAttempts: 0,
+    blocked: false,
+  })
+}
+
 // ¿Por qué separamos esto en utils/users.js y no lo metemos directo en el hook? Porque son funciones puras de acceso a datos (leer/escribir), fáciles de testear en la Fase 15 sin necesidad de renderizar componentes.//

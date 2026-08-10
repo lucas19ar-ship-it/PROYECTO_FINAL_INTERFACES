@@ -16,3 +16,23 @@ export function validateProductForm({ name, price, quantity }) {
     return errors
 }
 // es una funcion pura: recibe datos, devuelve errores. Facil de probar //
+
+
+// Validacion de restablecimiento//
+export function validateResetPassword({ username, newPassword, confirmPassword }) {
+  const errors = {}
+
+  if (!username || username.trim() === '') {
+    errors.username = 'El usuario es obligatorio'
+  }
+
+  if (!newPassword || newPassword.length < 8) {
+    errors.newPassword = 'La contraseña debe tener al menos 8 caracteres'
+  }
+
+  if (newPassword !== confirmPassword) { 
+    errors.confirmPassword = 'Las contraseñas no coinciden'
+  }
+
+  return errors
+}
