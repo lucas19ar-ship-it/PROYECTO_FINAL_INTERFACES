@@ -4,9 +4,7 @@ import { calculateSubtotal, calculateTotal, IGV_RATE } from '../utils/cartCalcul
 
 
 
-
-
-function Cart({ cart, onIncrease, onDecrease, onRemove }) {
+function Cart({ cart, onIncrease, onDecrease, onRemove, onConfirmOrder }) {
   const subtotal = calculateSubtotal(cart)
   const igv = subtotal * IGV_RATE
   const total = calculateTotal(cart)
@@ -38,6 +36,9 @@ function Cart({ cart, onIncrease, onDecrease, onRemove }) {
         <p>Subtotal: S/ {subtotal.toFixed(2)}</p>
         <p>IGV (18%): S/ {igv.toFixed(2)}</p>
         <p className="cart-total">Total: S/ {total.toFixed(2)}</p>
+        <button className="btn-confirm-order" onClick={onConfirmOrder}>
+          Confirmar Pedido
+        </button>
       </div>
     </div>
   )

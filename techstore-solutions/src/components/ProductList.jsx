@@ -1,6 +1,6 @@
 import ProductItem from "./ProductItem"
 
-function ProductList({ products, onAddToCart }) {
+function ProductList({ products, onAddToCart, isAdmin, onEditProduct, onDeleteProduct }) {
     if (products.length === 0) {
         return <p className="empty-message">Aún no hay productos registrados.</p>
 
@@ -14,6 +14,8 @@ function ProductList({ products, onAddToCart }) {
                   key={product.id}
                   product={product}
                   onAddToCart={onAddToCart}
+                  isAdmin={isAdmin}
+                  onEdit={onEditProduct}
                 />
             ))}
         </div>

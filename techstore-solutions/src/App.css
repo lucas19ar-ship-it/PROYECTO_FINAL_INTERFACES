@@ -371,3 +371,141 @@ body {
 .btn-link:hover {
   color: var(--color-primary-hover);
 }
+
+/* Edición de productos y paneles admin */
+.product-item-editing {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.product-item-editing input {
+  padding: 8px 10px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+}
+
+.product-item-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.btn-edit {
+  background-color: #f59e0b;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: var(--radius);
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.btn-delete {
+  background-color: var(--color-danger);
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: var(--radius);
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.btn-save {
+  background-color: var(--color-success);
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: var(--radius);
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.btn-cancel {
+  background-color: #94a3b8;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: var(--radius);
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.btn-confirm-order {
+  width: 100%;
+  margin-top: 12px;
+  background-color: var(--color-success);
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: var(--radius);
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.btn-confirm-order:hover {
+  opacity: 0.9;
+}
+
+.admin-panel {
+  background: var(--color-surface);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 20px;
+  margin-bottom: 32px;
+}
+
+.order-card {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 12px 16px;
+  margin-bottom: 12px;
+}
+
+.order-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  color: var(--color-text-light);
+  margin-bottom: 8px;
+}
+
+.order-items {
+  margin: 0 0 8px;
+  padding-left: 18px;
+  font-size: 0.9rem;
+}
+
+.order-total {
+  font-weight: 700;
+  text-align: right;
+  margin: 0;
+}
+
+.user-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.status-blocked {
+  color: var(--color-danger);
+  font-weight: 600;
+}
+
+.status-active {
+  color: var(--color-success);
+  font-weight: 600;
+}
+
+.btn-unlock {
+  background-color: var(--color-primary);
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: var(--radius);
+  cursor: pointer;
+  font-size: 0.85rem;
+}

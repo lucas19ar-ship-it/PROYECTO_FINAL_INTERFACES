@@ -5,8 +5,14 @@ import ProductList from './components/ProductList'
 import Cart from './components/Cart'
 import Login from './components/Login'
 import ResetPassword from './components/ResetPassword'
+import AdminOrders from './components/AdminOrders'
+import AdminUsers from './components/AdminUsers'
 import useLocalStorage from './hooks/useLocalStorage'
 import useAuth from './hooks/useAuth'
+import { getOrders, saveOrder } from './utils/orders'
+import { getUsers, updateUser } from './utils/users'
+import { updateProductInList, removeProductFromList } from './utils/products'
+import { buildOrder } from './utils/cartCalculations'
 
 
 
@@ -15,12 +21,27 @@ function App() {
   const [cart, setCart] = useLocalStorage('techstore-cart', [])
   const { session, isAuthenticated, loginError, login, logout } = useAuth()
   const [authView, setAuthView] = useState('login') // 'login' | 'reset'
+  const [orders, setOrders] = useState(getOrders())
+  const [users, setUsers] = useState(getUsers())
 
+  const isAdmin = session?.role === 'admin'
 
 
   function handleAddProduct(newProduct) {
     setProducts(prev => [...prev, newProduct])
   }
+
+
+  function handleEditProduct(updatedProduct) {
+    setProducts(prev => updateProductInList(prev, updatedProduct))
+  }
+
+  function handleDeleteProduct(productId) {
+    if (confirm('¿Seguro que deseas eliminar este producto?')) {
+      setProducts(prev => removeProductFromList(prev, productId))
+    }
+  }
+  
 
   function handleAddToCart(product) {
     setCart(prevCart => {
@@ -58,7 +79,22 @@ function App() {
   function handleRemove(id) {
     setCart(prevCart => prevCart.filter(item => item.id !== id))
   }
-   
+  
+  function handleConfirmOrder() {
+    if (cart.length === 0) return
+    const order = buildOrder(cart, session.username)
+    const updatedOrders = saveOrder(order)
+    setOrders(updatedOrders)
+    setCart([])
+    alert('¡Pedido confirmado con éxito!')
+  }
+
+  function handleUnlockUser(userman) {
+    updateUser(username, { blocked: false, failedAttempts: 0})
+    setUsers(getUsers())
+  }
+
+
   // sin sesion: mostramos login o resertpassword segun la vista activa //
   if (!isAuthenticated) { 
     if (authView == 'reset') {
@@ -88,14 +124,38 @@ function App() {
         </div>
       </div>
 
-      <ProductForm onAddProduct={handleAddProduct} />
-      <ProductList products={products} onAddToCart={handleAddToCart} />
-      <Cart 
-        cart= {cart}
-        onIncrease={handleIncrease}
-        onDecrease={handleDecrease}
-        onRemove={handleRemove}
-      />
+      {isAdmin && (
+        <>
+          <ProductForm onAddProduct={handleAddProduct} />
+          <ProductList 
+            products={products}
+            isAdmin={true}
+            onEditProduct={handleEditProduct}
+            onDeleteProduct={handleDeleteProduct}
+          />
+          <AdminOrders orders={orders} />
+          <AdminUsers users={users} onUnlock={handleUnlockUser} />
+        </>
+      )}
+
+      {!isAdmin && (
+        <>
+          <ProductList
+            products={products}
+            onAddToCart={handleAddToCart}
+            isAdmin={false}
+          />
+          <Cart
+            cart={cart}
+            onIncrease={handleIncrease}
+            onDecrease={handleDecrease}
+            onRemove={handleRemove}
+            onConfirmOrder={handleConfirmOrder}
+          />
+        </>
+      )}
+
+      
     </div> 
   )
 }
