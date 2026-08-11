@@ -138,6 +138,12 @@ function App() {
         </>
       )}
 
+      {/*
+         Restriccion de acceso al carrito: el carrito solo se renderiza si isAuthenticated=true y isAdmin=false. 
+         no se usa CSS para ocultar - el componente <Cart /> no se monta en el DOM en ningun otro caso, evmitando
+         la manipulacion desde las DevTools del navegador.
+        */}
+
       {!isAdmin && (
         <>
           <ProductList
