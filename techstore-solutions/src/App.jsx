@@ -13,7 +13,7 @@ import { getOrders, saveOrder } from './utils/orders'
 import { getUsers, updateUser } from './utils/users'
 import { updateProductInList, removeProductFromList } from './utils/products'
 import { buildOrder } from './utils/cartCalculations'
-
+import { canSeeCart, canManageProdcuts } from './utils/permissions'
 
 
 function App() {
@@ -25,6 +25,8 @@ function App() {
   const [users, setUsers] = useState(getUsers())
 
   const isAdmin = session?.role === 'admin'
+  const showCart = canSeeCart(isAuthenticated, session?.role)
+  const showAdminPanel = canManageProdcuts(isAuthenticated, session?.role)
 
 
   function handleAddProduct(newProduct) {
