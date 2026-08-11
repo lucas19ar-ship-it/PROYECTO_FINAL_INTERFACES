@@ -94,6 +94,12 @@ function App() {
     setUsers(getUsers())
   }
 
+  function handleLogoutClick() {
+    if (confirm('¿Seguro que deseas cerrar sesión?')) {
+      logout()
+    }
+  }
+
 
   // sin sesion: mostramos login o resertpassword segun la vista activa //
   if (!isAuthenticated) { 
@@ -120,7 +126,7 @@ function App() {
           <span>
             {session.username} ({session.role})
           </span>
-          <button onClick={logout} className="btn-logout">Cerrar Sesión</button>
+          <button onClick={handleLogoutClick} className="btn-logout">Cerrar Sesión</button>
         </div>
       </div>
 
