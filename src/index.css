@@ -1,0 +1,16 @@
+/* src/index.css
+   Reset mínimo. El diseño completo vive en App.css — este archivo
+   solo evita comportamientos por defecto del navegador. */
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+#root {
+  min-height: 100svh;
+}
