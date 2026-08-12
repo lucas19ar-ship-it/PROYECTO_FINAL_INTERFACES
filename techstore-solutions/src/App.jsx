@@ -13,7 +13,7 @@ import { getOrders, saveOrder } from './utils/orders'
 import { getUsers, updateUser } from './utils/users'
 import { updateProductInList, removeProductFromList } from './utils/products'
 import { buildOrder } from './utils/cartCalculations'
-import { canSeeCart, canManageProdcuts } from './utils/permissions'
+import { canSeeCart, canManageProducts } from './utils/permissions'
 
 
 function App() {
@@ -26,7 +26,7 @@ function App() {
 
   const isAdmin = session?.role === 'admin'
   const showCart = canSeeCart(isAuthenticated, session?.role)
-  const showAdminPanel = canManageProdcuts(isAuthenticated, session?.role)
+  const showAdminPanel = canManageProducts(isAuthenticated, session?.role)
 
 
   function handleAddProduct(newProduct) {
@@ -91,7 +91,7 @@ function App() {
     alert('¡Pedido confirmado con éxito!')
   }
 
-  function handleUnlockUser(userman) {
+  function handleUnlockUser(username) {
     updateUser(username, { blocked: false, failedAttempts: 0})
     setUsers(getUsers())
   }

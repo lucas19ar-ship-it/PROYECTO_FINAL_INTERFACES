@@ -1,5 +1,5 @@
 export function updateProductInList(products, updatedProduct) {
-    return products.map(p => (p.id === updateProduct.id ? updatedProduct : p))
+    return products.map(p => (p.id === updatedProduct.id ? updatedProduct : p))
 }
 
 export function removeProductFromList(products, productId) {
